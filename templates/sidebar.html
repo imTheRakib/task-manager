@@ -29,82 +29,95 @@ pass
         <ul>
 
           <li class="menu-header">
-            <span> Master Setup </span>
+            <span>Navigation</span>
           </li>
 
-          <li
-            class="menu-item sub-menu [[if _controller_name in ['category','page_setup','press_setup','ctp_setup']:]]open[[pass]]">
+          <li class="menu-item [[if _controller_name=='dashboard':]]active_link[[pass]]">
+            <a href="[[=URL('dashboard','index')]]">
+              <span class="menu-icon"><i class="fa-solid fa-gauge-high"></i></span>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+
+          <li class="menu-header">
+            <span>Task Planning</span>
+          </li>
+
+          <li class="menu-item sub-menu [[if _controller_name in ['project','module','tasks']:]]open[[pass]]">
             <a href="#">
-              <span class="menu-icon">
-                <i class="fa-solid fa-network-wired"></i>
-              </span>
-              <span class="menu-title">Page Setup</span>
+              <span class="menu-icon"><i class="fa-solid fa-diagram-project"></i></span>
+              <span class="menu-title">Projects & Tasks</span>
             </a>
             <div class="sub-menu-list">
               <ul>
-                <li class="menu-item [[if _controller_name=='category':]]active_link[[pass]]">
-                  <a href="[[=URL('category/index')]]">
-                    <span class="menu-icon"><i class="fa-solid fa-warehouse"></i></span>
-                    <span class="menu-title">Category</span>
+                <li class="menu-item [[if _controller_name=='project':]]active_link[[pass]]">
+                  <a href="[[=URL('project/index')]]">
+                    <span class="menu-icon"><i class="fa-solid fa-folder-tree"></i></span>
+                    <span class="menu-title">Projects</span>
                   </a>
                 </li>
-                <li class="menu-item [[if _controller_name=='ctp_setup':]]active_link[[pass]]">
-                  <a href="[[=URL('ctp_setup/index')]]">
-                    <span class="menu-icon"><i class="fas fa-ad"></i></span>
-                    <span class="menu-title">CTP Setup</span>
+                <li class="menu-item [[if _controller_name=='module':]]active_link[[pass]]">
+                  <a href="[[=URL('module/index')]]">
+                    <span class="menu-icon"><i class="fa-solid fa-layer-group"></i></span>
+                    <span class="menu-title">Modules</span>
                   </a>
                 </li>
-                <li class="menu-item [[if _controller_name=='press_setup':]]active_link[[pass]]">
-                  <a href="[[=URL('press_setup/index')]]">
-                    <span class="menu-icon"><i class="fas fa-ad"></i></span>
-                    <span class="menu-title">Press</span>
-                  </a>
-                </li>
-                <li class="menu-item [[if _controller_name=='page_setup':]]active_link[[pass]]">
-                  <a href="[[=URL('page_setup/index')]]">
-                    <span class="menu-icon"><i class="fas fa-ad"></i></span>
-                    <span class="menu-title">Pages</span>
+                <li class="menu-item [[if _controller_name=='tasks':]]active_link[[pass]]">
+                  <a href="[[=URL('tasks/index')]]">
+                    <span class="menu-icon"><i class="fa-solid fa-list-check"></i></span>
+                    <span class="menu-title">Tasks</span>
                   </a>
                 </li>
               </ul>
             </div>
           </li>
 
-          <li
-            class="menu-item sub-menu [[if _controller_name in ['sales_area','agent','employees','designation']:]]open[[pass]]">
+          <li class="menu-item sub-menu [[if _controller_name in ['work_log']:]]open[[pass]]">
             <a href="#">
-              <span class="menu-icon">
-                <i class="fa-solid fa-network-wired"></i>
-              </span>
-              <span class="menu-title">Agent & Employee</span>
+              <span class="menu-icon"><i class="fa-regular fa-clock"></i></span>
+              <span class="menu-title">Time Tracking</span>
             </a>
             <div class="sub-menu-list">
               <ul>
-                <li class="menu-item [[if _controller_name=='sales_area':]]active_link[[pass]]">
-                  <a href="[[=URL('sales_area/index')]]">
-                    <span class="menu-icon"><i class="fa-solid fa-percentage"></i></span>
-                    <span class="menu-title">Sales Area</span>
+                <li class="menu-item [[if _controller_name=='work_log':]]active_link[[pass]]">
+                  <a href="[[=URL('work_log/index')]]">
+                    <span class="menu-icon"><i class="fa-solid fa-stopwatch"></i></span>
+                    <span class="menu-title">Work Logs</span>
                   </a>
                 </li>
-                <li class="menu-item [[if _controller_name=='agent':]]active_link[[pass]]">
-                  <a href="[[=URL('agent/index')]]">
-                    <span class="menu-icon"><i class="fa-solid fa-warehouse"></i></span>
-                    <span class="menu-title fw-bold">Agent Information</span>
-                  </a>
-                </li>
-                <li class="menu-item [[if _controller_name=='employees':]]active_link[[pass]]">
-                  <a href="[[=URL('employees/index')]]">
-                    <span class="menu-icon"><i class="fa-solid fa-warehouse"></i></span>
-                    <span class="menu-title">Employee Information</span>
-                  </a>
-                </li>
-                <li class="menu-item [[if _controller_name=='designation':]]active_link[[pass]]">
-                  <a href="[[=URL('designation/index')]]">
-                    <span class="menu-icon"><i class="fa-solid fa-warehouse"></i></span>
-                    <span class="menu-title">Designation</span>
-                  </a>
-                </li>
+              </ul>
+            </div>
+          </li>
 
+          <li class="menu-header">
+            <span>People</span>
+          </li>
+
+          <li class="menu-item sub-menu [[if _controller_name in ['user','role','user_role']:]]open[[pass]]">
+            <a href="#">
+              <span class="menu-icon"><i class="fa-solid fa-users-gear"></i></span>
+              <span class="menu-title">Users & Roles</span>
+            </a>
+            <div class="sub-menu-list">
+              <ul>
+                <li class="menu-item [[if _controller_name=='user':]]active_link[[pass]]">
+                  <a href="[[=URL('user/index')]]">
+                    <span class="menu-icon"><i class="fa-solid fa-user"></i></span>
+                    <span class="menu-title">Users</span>
+                  </a>
+                </li>
+                <li class="menu-item [[if _controller_name=='role':]]active_link[[pass]]">
+                  <a href="[[=URL('role/index')]]">
+                    <span class="menu-icon"><i class="fa-solid fa-shield-halved"></i></span>
+                    <span class="menu-title">Roles</span>
+                  </a>
+                </li>
+                <li class="menu-item [[if _controller_name=='user_role':]]active_link[[pass]]">
+                  <a href="[[=URL('user_role/index')]]">
+                    <span class="menu-icon"><i class="fa-solid fa-link"></i></span>
+                    <span class="menu-title">User Roles</span>
+                  </a>
+                </li>
               </ul>
             </div>
           </li>

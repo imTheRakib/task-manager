@@ -1,0 +1,198 @@
+[[extend 'layout.html']]
+
+[[block header]]
+[[icon='fa fa-chart-line']]
+[[breadcamp = 'Sub-Route']]
+[[end]]
+
+[[block content]]
+<div class="container-section">
+    <div class="d-flex justify-content-between align-items-center border-bottom">
+        <span class="icon-text icon-text-bold">
+            <i class="fa-solid fa-plus"></i>
+            <span>Edit</span>
+        </span>
+
+        <div class="d-flex justify-content-end">
+            <div class="p-1">
+                <button type="button" class="btn btn-sm btn-light d-none" id="btn_view">
+                    <i class="fa-regular fa-eye"></i> <span class="ms-2">View</span>
+                </button>
+                <button type="button" class="btn btn-sm btn-light" id="btn_edit">
+                    <i class="fa-regular fa-pen-to-square"></i> <span class="ms-2">Edit</span>
+                </button>
+            </div>
+            <div class="p-1">
+                <a href="[[=URL('sub_route/index')]]" class="btn btn-sm btn-light">
+                    <i class="fa-solid fa-arrow-left"></i> <span class="ms-2">Back</span>
+                </a>
+            </div>
+            <div class="p-1">
+                <div class="btn-group">
+                    <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Action
+                    </button>
+                    <!-- <ul class="dropdown-menu"> -->
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <!--<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-add me-1"></i> Add</a>-->
+                        <a class="dropdown-item" href="delete?id=[[=request.query.get('id')]]" id="delete_btn">
+                            <i class="fa-solid fa-trash-can"></i><span class="ms-2">Delete</span></a>
+                    </div>
+                    <!-- </ul> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container py-2">
+
+        <form action="[[=URL('sub_route','update')]]?id=[[=record.id]]" method="POST">
+
+        <div id="custom_form">        
+            <div class="row"> 
+                
+                <div class="col-md-4">
+                    <div class="mb-3 custom_input">
+                        <label for="sub_route_code" class="form-label">Sub-Route Code<span class="is_required">*</span></label>
+                        <input type="text" id="sub_route_code" name="sub_route_code" value="[[=record.sub_route_code]]" class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3 custom_input">
+                        <label for="sub_route_name" class="form-label">Sub-Route<span class="is_required">*</span></label>
+                        <input type="text" id="sub_route_name" name="sub_route_name" value="[[=record.sub_route_name]]" class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3 custom_input">
+                        <label for="sub_route_bangla" class="form-label">Sub-Route(Bangla)</label>
+                        <input type="text" id="sub_route_bangla" name="sub_route_bangla" value="[[=record.sub_route_bangla]]" class="form-control form-control-sm">
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="mb-3 custom_input">
+                        <label for="post_office" class="form-label">Route<span class="is_required">*</span></label>
+                        <select class="form-select form-select-sm select_custom" name="route_name"  style="width: 200px;" placeholder="Select Route">
+                            <option value="">Select Route</option>
+                            [[for route_st in route_setup:]]
+                            <option value="[[=route_st.id]]||[[=route_st.route_name]]" [[if str(route_st.id)==str(record.route_id): ]]selected[[pass]]>[[=route_st.route_code]] || [[=route_st.route_name]]</option>
+                            [[pass]]
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="mb-3 custom_input">
+                        <label for="post_office" class="form-label">Start Point<span class="is_required">*</span></label>
+                        <select class="form-select form-select-sm select_custom" name="start_point" style="width: 200px;" placeholder="Select Start Point">
+                            <option value="">Select Start Point</option>
+                            [[for station in stations:]]
+                            <option value="[[=station.id]]||[[=station.station]]" [[if str(station.id)==str(record.sp_id): ]]selected[[pass]]>[[=station.station_code]] || [[=station.station]]</option>
+                            [[pass]]
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="mb-3 custom_input">
+                        <label for="post_office" class="form-label">End Point<span class="is_required">*</span></label>
+                        <select class="form-select form-select-sm select_custom" name="end_point" style="width: 200px;" placeholder="Select End Point">
+                            <option value="">Select End Point</option>
+                            [[for station in stations:]]
+                            <option value="[[=station.id]]||[[=station.station]]" [[if str(station.id)==str(record.ep_id): ]]selected[[pass]]>[[=station.station_code]] || [[=station.station]]</option>
+                            [[pass]]
+                        </select>
+                    </div>
+                </div>
+                
+
+                <div class="col-md-4">
+                    <div class="mb-3 custom_input">
+                        <label for="departure_time" class="form-label">Departure Time<span class="is_required">*</span></label>
+                        <input type="time" id="departure_time" name="departure_time" value="[[=record.departure_time]]" class="form-control form-control-sm" >
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3 custom_input">
+                        <label for="arrive_time" class="form-label">Arrive Time<span class="is_required">*</span></label>
+                        <input type="time" id="arrive_time" name="arrive_time" value="[[=record.arrive_time]]" class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3 custom_input">
+                        <label for="sorting_order" class="form-label">Sorting Order<span class="is_required">*</span></label>
+                        <input type="text" id="sorting_order" name="sorting_order"  value="[[=record.sorting_order]]" class="form-control form-control-sm">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="mb-3 custom_input">
+                        <label for="press" class="form-label">Press<span class="is_required">*</span></label>
+                        <select class="form-select form-select-sm select_custom" name="press" style="width: 200px;" placeholder="Select press">
+                            <option value="">Select press</option>
+                            [[for press in press_list:]]
+                            <option value="[[=press.press_name]]" [[if str(press.press_name)==str(record.press): ]]selected[[pass]]>[[=press.press_name]]</option>
+                            [[pass]]
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="mb-3 custom_input">
+                        <label for="location" class="form-label">Location<span class="is_required">*</span></label>
+                        <select class="form-select form-select-sm select_custom" name="location" style="width: 200px;" placeholder="Select Location">
+                            <option value="">Select Location</option>
+                            [[for location in location_list:]]
+                            <option value="[[=location]]" [[if str(location)==str(record.location): ]]selected[[pass]]>[[=location]]</option>
+                            [[pass]]
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3 ">
+                        <label for="status" class="form-label">Status</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="1" id="status" name="status" disabled
+                            [[if record.status==1:]] checked [[pass]]>
+                            <label class="form-check-label" for="status">
+                              Active
+                            </label>
+                        </div>
+                    </div>
+                    
+                </div>
+              
+            </div>
+            <div class="row d-none" id="edit_view_section">
+                <div class="col-12">
+                    <div class="d-flex justify-content-start">
+                        <div class="me-2">
+                            <button type="submit" class="btn btn-sm btn-primary">
+                                <i class="fa-regular fa-floppy-disk"></i> <span class="ms-2">Update</span>
+                            </button>
+                        </div>
+                        <div class="">
+                            <button type="reset" class="btn btn-sm btn-light">
+                                <i class="fa-solid fa-retweet"></i> <span class="ms-2">Reset</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+
+</div>
+[[end]]
+[[block scripts]]
+<!-- individual pages can add scripts here -->
+<script>
+    // $(document).ready(function() {        
+        
+                
+
+    // });
+</script>
+[[end]]

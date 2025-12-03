@@ -1,0 +1,100 @@
+[[extend 'layout.html']]
+
+[[block header]]
+[[icon='fa fa-chart-line']]
+[[breadcamp = 'All Pages']]
+[[end]]
+
+[[block content]]
+<div class="container-section">
+    <div class="d-flex justify-content-between align-items-center border-bottom">
+        <span class="icon-text icon-text-bold">
+            <i class="fa-solid fa-plus"></i>
+            <span>Create</span>
+        </span>
+
+        <div class="d-flex justify-content-end">
+            <div class="p-1">
+                <a href="[[=URL('assign_page_type/index')]]" class="btn btn-sm btn-light">
+                    <i class="fa-solid fa-arrow-left"></i> <span class="ms-2">Back</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="container py-2">
+
+        [[= form.custom.begin ]]
+        <div id="custom_form">        
+            <div class="row">
+               
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="company" class="form-label">Company</label>
+                        [[= form.custom.widgets['company'] ]]
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="segment" class="form-label">Segment</label>
+                        [[= form.custom.widgets['segment'] ]]
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="supplement" class="form-label">Supplement</label>
+                        [[= form.custom.widgets['supplement'] ]]
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="page_name" class="form-label">Page name</label>
+                        [[= form.custom.widgets['page_name'] ]]
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="1" checked id="status" name="status">
+                            <label class="form-check-label" for="status">
+                              Active
+                            </label>
+                        </div>
+                    </div>
+                    
+                </div>
+              
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-start">
+                        <div class="me-2">
+                            <button type="submit" class="btn btn-sm btn-primary">
+                                <i class="fa-regular fa-floppy-disk"></i> <span class="ms-2">Save</span>
+                            </button>
+                        </div>
+                        <div class="">
+                            <button type="reset" class="btn btn-sm btn-light">
+                                <i class="fa-solid fa-retweet"></i> <span class="ms-2">Reset</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        [[= form.custom.end ]]
+    </div>
+
+</div>
+[[end]]
+[[block scripts]]
+<script>
+$(document).ready(function () {
+    // Handle page_type change event to load page_name
+   
+
+});
+</script>
+<!-- individual pages can add scripts here -->
+[[end]]

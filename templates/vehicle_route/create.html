@@ -1,0 +1,131 @@
+[[extend 'layout.html']]
+
+[[block header]]
+[[icon='fa fa-chart-line']]
+[[breadcamp = 'Vehicle Route']]
+
+[[end]]
+
+[[block content]]
+<div class="container-section">
+    <div class="d-flex justify-content-between align-items-center border-bottom">
+        <span class="icon-text icon-text-bold">
+            <i class="fa-solid fa-plus"></i>
+            <span>Create</span>
+        </span>
+
+        <div class="d-flex justify-content-end">
+            <div class="p-1">
+                <a href="[[=URL('vehicle_route/index')]]" class="btn btn-sm btn-light">
+                    <i class="fa-solid fa-arrow-left"></i> <span class="ms-2">Back</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="container py-2">
+
+        <form action="[[=URL('vehicle_route','submit')]]" method="POST">
+
+        <div id="custom_form">        
+            <div class="row">                
+                
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="vehicle_name" class="form-label">Vehicle<span class="is_required">*</span></label>
+                        <select class="form-select form-select-sm select_custom" name="vehicle_name" style="width: 200px;" placeholder="Select Vehicle">
+                            <option value="">Select Vehicle</option>
+                            [[for vehicle in vehicles:]]
+                                <option value="[[=vehicle.id]]||[[=vehicle.vehicle_name]]">[[=vehicle.vehicle_code]] | [[=vehicle.vehicle_name]]</option>
+                            [[pass]]
+
+                        </select>
+                    </div>
+                </div>
+                
+                
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="driver_name" class="form-label">Driver Name <span class="is_required">*</span></label>
+                        <input type="text" id="driver_name" name="driver_name" class="form-control form-control-sm">
+                    </div>
+                </div> 
+
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="license_no" class="form-label">License No. <span class="is_required">*</span></label>                        
+                            <input type="text" id="license_no" name="license_no" class="form-control form-control-sm ">                        
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="route_name" class="form-label">Route<span class="is_required">*</span></label>
+                        <select class="form-select form-select-sm select_custom" name="route_name" style="width: 200px;" placeholder="Select Route">
+                            <option value="">Select Route</option>
+                            [[for route in routes:]]
+                                <option value="[[=route.id]]||[[=route.route_name]]">[[=route.route_code]] | [[=route.route_name]]</option>
+                            [[pass]]
+
+                        </select>
+                    </div>
+                </div> 
+
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="sub_route" class="form-label">Sub Route<span class="is_required">*</span></label>
+                        <select class="form-select form-select-sm select_custom" name="sub_route" style="width: 200px;" placeholder="Select Sub Route">
+                            <option value="">Select Sub Route</option>
+                            [[for sub_route in sub_routes:]]
+                                <option value="[[=sub_route.id]]||[[=sub_route.sub_route_name]]">[[=sub_route.sub_route_code]] | [[=sub_route.sub_route_name]]</option>
+                            [[pass]]
+
+                        </select>
+                    </div>
+                </div>  
+                
+                  
+
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="1" checked id="status" name="status">
+                            <label class="form-check-label" for="status">
+                              Active
+                            </label>
+                        </div>
+                    </div>
+                    
+                </div>
+              
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-start">
+                        <div class="me-2">
+                            <button type="submit" class="btn btn-sm btn-primary">
+                                <i class="fa-regular fa-floppy-disk"></i> <span class="ms-2">Save</span>
+                            </button>
+                        </div>
+                        <div class="">
+                            <button type="reset" class="btn btn-sm btn-light">
+                                <i class="fa-solid fa-retweet"></i> <span class="ms-2">Reset</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+
+</div>
+[[end]]
+[[block scripts]]
+<!-- individual pages can add scripts here -->
+<script>
+    // $(document).ready(function() { 
+
+    // });
+</script>
+[[end]]

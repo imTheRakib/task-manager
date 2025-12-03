@@ -1,0 +1,142 @@
+[[extend 'layout.html']]
+
+[[block header]]
+[[icon='fa fa-chart-line']]
+[[breadcamp = 'Vehicle']]
+[[end]]
+
+[[block content]]
+<div class="container-section">
+    <div class="d-flex justify-content-between align-items-center border-bottom">
+        <span class="icon-text icon-text-bold">
+            <i class="fa-solid fa-plus"></i>
+            <span>Edit</span>
+        </span>
+
+        <div class="d-flex justify-content-end">
+            <div class="p-1">
+                <button type="button" class="btn btn-sm btn-light d-none" id="btn_view">
+                    <i class="fa-regular fa-eye"></i> <span class="ms-2">View</span>
+                </button>
+                <button type="button" class="btn btn-sm btn-light" id="btn_edit">
+                    <i class="fa-regular fa-pen-to-square"></i> <span class="ms-2">Edit</span>
+                </button>
+            </div>
+            <div class="p-1">
+                <a href="[[=URL('vehicle/index')]]" class="btn btn-sm btn-light">
+                    <i class="fa-solid fa-arrow-left"></i> <span class="ms-2">Back</span>
+                </a>
+            </div>
+            <div class="p-1">
+                <div class="btn-group">
+                    <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Action
+                    </button>
+                    <!-- <ul class="dropdown-menu"> -->
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <!--<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-add me-1"></i> Add</a>-->
+                        <a class="dropdown-item" href="delete?id=[[=request.query.get('id')]]" id="delete_btn">
+                            <i class="fa-solid fa-trash-can"></i><span class="ms-2">Delete</span></a>
+                    </div>
+                    <!-- </ul> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container py-2">
+
+        <form action="[[=URL('vehicle','update')]]?id=[[=record.id]]" method="POST">
+
+        <div id="custom_form">  
+            <div class="row">                
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="vehicle_code" class="form-label">Vehicle Code<span class="is_required">*</span></label>
+                        <input type="text" id="vehicle_code" name="vehicle_code" value="[[=record.vehicle_code]]" class="form-control form-control-sm" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3 custom_input">
+                        <label for="vehicle_name" class="form-label">Vehicle Name <span class="is_required">*</span></label>
+                        <input type="text" id="vehicle_name" name="vehicle_name" value="[[=record.vehicle_name]]" class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3 custom_input">
+                        <label for="vehicle_bangla" class="form-label">Vehicle Name (Bangla)</label>
+                        <input type="text" id="vehicle_bangla" name="vehicle_bangla" value="[[=record.vehicle_bangla]]" class="form-control form-control-sm">
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="mb-3 custom_input">
+                        <label for="vehicle_reg_no" class="form-label">Registration No. <span class="is_required">*</span></label>                        
+                            <input type="text" id="vehicle_reg_no" name="vehicle_reg_no" value="[[=record.vehicle_reg_no]]" class="form-control form-control-sm ">                        
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="mb-3 custom_input">
+                        <label for="capacity" class="form-label">Capacity <span class="is_required">*</span></label>
+                        <input type="number" id="capacity" name="capacity" value="[[=record.capacity]]" class="form-control form-control-sm">
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="mb-3 custom_input">
+                        <label for="sorting_order" class="form-label">Rate Per Trip<span class="is_required">*</span></label>                        
+                            <input type="number" step="0.01" id="rate_per_trip" name="rate_per_trip" value="[[=record.rate_per_trip]]"  class="form-control form-control-sm ">                        
+                    </div>
+                </div>     
+                
+                <div class="col-md-4">
+                    <div class="mb-3 custom_input">
+                        <label for="owner_name" class="form-label">Owner Name <span class="is_required">*</span></label>
+                        <input type="text" id="owner_name" name="owner_name" value="[[=record.owner_name]]" class="form-control form-control-sm">
+                    </div>
+                </div>   
+
+                <div class="col-md-4">
+                    <div class="mb-3 ">
+                        <label for="status" class="form-label">Status</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="1" id="status" name="status" disabled
+                            [[if record.status==1:]] checked [[pass]]>
+                            <label class="form-check-label" for="status">
+                              Active
+                            </label>
+                        </div>
+                    </div>
+                    
+                </div>
+              
+            </div>
+            <div class="row d-none" id="edit_view_section">
+                <div class="col-12">
+                    <div class="d-flex justify-content-start">
+                        <div class="me-2">
+                            <button type="submit" class="btn btn-sm btn-primary">
+                                <i class="fa-regular fa-floppy-disk"></i> <span class="ms-2">Update</span>
+                            </button>
+                        </div>
+                        <div class="">
+                            <button type="reset" class="btn btn-sm btn-light">
+                                <i class="fa-solid fa-retweet"></i> <span class="ms-2">Reset</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+
+</div>
+[[end]]
+[[block scripts]]
+
+<script>
+   
+</script>
+[[end]]

@@ -1,0 +1,132 @@
+[[
+if len(request.path.split('/'))>2:
+_controller_name = request.path.split('/')[2]
+else:
+_controller_name = ''
+pass
+]]
+<aside id="sidebar" class="sidebar break-point-sm has-bg-image">
+  <a id="btn-collapse" class="sidebar-collapser"><i class="fa-solid fa-angle-left"></i></a>
+  <div class="image-wrapper">
+    <img src="#" alt="sidebar background" />
+  </div>
+
+  <div class="sidebar-layout">
+
+    <div class="sidebar-header">
+      <a href="[[=URL('dashboard','index')]]" style="color: inherit;">
+        <div class="pro-sidebar-logo" style="padding-top: 5px;">
+          <div style="background-color:inherit; padding-bottom: 5px;">
+            <img src="[[=URL('static','task_planning.png')]]" height="25" alt="circulation logo">
+          </div>
+          <h5 class="fw-bold">Task Management</h5>
+        </div>
+      </a>
+    </div>
+
+    <div class="sidebar-content">
+      <nav class="menu open-current-submenu">
+        <ul>
+
+          <li class="menu-header">
+            <span> Master Setup </span>
+          </li>
+
+          <li
+            class="menu-item sub-menu [[if _controller_name in ['category','page_setup','press_setup','ctp_setup']:]]open[[pass]]">
+            <a href="#">
+              <span class="menu-icon">
+                <i class="fa-solid fa-network-wired"></i>
+              </span>
+              <span class="menu-title">Page Setup</span>
+            </a>
+            <div class="sub-menu-list">
+              <ul>
+                <li class="menu-item [[if _controller_name=='category':]]active_link[[pass]]">
+                  <a href="[[=URL('category/index')]]">
+                    <span class="menu-icon"><i class="fa-solid fa-warehouse"></i></span>
+                    <span class="menu-title">Category</span>
+                  </a>
+                </li>
+                <li class="menu-item [[if _controller_name=='ctp_setup':]]active_link[[pass]]">
+                  <a href="[[=URL('ctp_setup/index')]]">
+                    <span class="menu-icon"><i class="fas fa-ad"></i></span>
+                    <span class="menu-title">CTP Setup</span>
+                  </a>
+                </li>
+                <li class="menu-item [[if _controller_name=='press_setup':]]active_link[[pass]]">
+                  <a href="[[=URL('press_setup/index')]]">
+                    <span class="menu-icon"><i class="fas fa-ad"></i></span>
+                    <span class="menu-title">Press</span>
+                  </a>
+                </li>
+                <li class="menu-item [[if _controller_name=='page_setup':]]active_link[[pass]]">
+                  <a href="[[=URL('page_setup/index')]]">
+                    <span class="menu-icon"><i class="fas fa-ad"></i></span>
+                    <span class="menu-title">Pages</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li
+            class="menu-item sub-menu [[if _controller_name in ['sales_area','agent','employees','designation']:]]open[[pass]]">
+            <a href="#">
+              <span class="menu-icon">
+                <i class="fa-solid fa-network-wired"></i>
+              </span>
+              <span class="menu-title">Agent & Employee</span>
+            </a>
+            <div class="sub-menu-list">
+              <ul>
+                <li class="menu-item [[if _controller_name=='sales_area':]]active_link[[pass]]">
+                  <a href="[[=URL('sales_area/index')]]">
+                    <span class="menu-icon"><i class="fa-solid fa-percentage"></i></span>
+                    <span class="menu-title">Sales Area</span>
+                  </a>
+                </li>
+                <li class="menu-item [[if _controller_name=='agent':]]active_link[[pass]]">
+                  <a href="[[=URL('agent/index')]]">
+                    <span class="menu-icon"><i class="fa-solid fa-warehouse"></i></span>
+                    <span class="menu-title fw-bold">Agent Information</span>
+                  </a>
+                </li>
+                <li class="menu-item [[if _controller_name=='employees':]]active_link[[pass]]">
+                  <a href="[[=URL('employees/index')]]">
+                    <span class="menu-icon"><i class="fa-solid fa-warehouse"></i></span>
+                    <span class="menu-title">Employee Information</span>
+                  </a>
+                </li>
+                <li class="menu-item [[if _controller_name=='designation':]]active_link[[pass]]">
+                  <a href="[[=URL('designation/index')]]">
+                    <span class="menu-icon"><i class="fa-solid fa-warehouse"></i></span>
+                    <span class="menu-title">Designation</span>
+                  </a>
+                </li>
+
+              </ul>
+            </div>
+          </li>
+
+        </ul>
+      </nav>
+    </div>
+
+    <div class="sidebar-footer d-flex justify-content-between">
+      <a href="#">
+        <i class="fa fa-bell"></i>
+      </a>
+      <a href="#">
+        <i class="fa fa-envelope"></i>
+      </a>
+      <a href="#">
+        <i class="fa fa-cog"></i>
+      </a>
+      <a href="[[=URL('logout')]]">
+        <i class="fa fa-power-off"></i>
+      </a>
+    </div>
+
+  </div>
+</aside>

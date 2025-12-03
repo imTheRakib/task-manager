@@ -1,0 +1,296 @@
+[[extend 'layout.html']]
+
+[[block header]]
+[[icon='fa fa-chart-line']]
+[[breadcamp = 'All Pages']]
+[[end]]
+
+
+[[block content]]
+<div class="container-section">
+    <div class="d-flex justify-content-between align-items-center">
+
+        <span class="icon-text icon-text-bold">
+            <i class="fa-solid fa-table-list"></i>
+            <span>Table</span>
+        </span>
+        <div class="d-flex justify-content-end">
+            <div class="p-1">
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-light" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                        <i class="fa-solid fa-filter"></i> <span class="ms-2">Filter</span>
+                    </button>
+                    <ul class="dropdown-menu active" style="width: 500px;">
+                        <li>
+                            <style>
+                                .cu-filter-value-list-dropdown__title {
+                                    font-weight: 500;
+                                    font-size: 1rem;
+                                    line-height: 1.25;
+                                    margin-top: 2px;
+                                    position: relative;
+                                    color: rgb( 79, 87, 98 );
+                                    text-decoration: none;
+                                    z-index: 10;
+                                }
+                            </style>
+                            <div class="row mb-2">
+                                <h1 class="cu-filter-value-list-dropdown__title"><i class="fa-solid fa-filter"></i> Filter</h1>
+                            </div> 
+                            <form class="px-4 py-3" action="[[=URL('supplement_page','index')]]" method="POST">
+                                <div id="custom_form">
+                                    <div class="p-3 mb-2" style="border: 1px solid rgb(232, 234, 237); border-radius: 5px ; background-color: rgb( 247, 248, 249);">
+                                        <div class="row">
+                                            
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="form-label">Company</label>
+                                                    <select class="select_custom form-control" id="company" name="company"  >
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="form-label">segment</label>
+                                                    <select class="select_custom form-control" id="segment" name="segment"  >
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="form-label">Supplement</label>
+                                                    <select class="select_custom form-control" id="supplement" name="supplement"  >
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="form-label">Page Name</label>
+                                                    <select class="select_custom form-control" id="page_name" name="page_name"  >
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="form-label">Status</label>
+                                                    <select class="select_custom form-control" name="status" id="status" >
+                                                        <option value=""></option>
+                                                        <option value="1">Active</option>
+                                                        <option value="0">Inactive</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-start">
+                                                <div class="me-2">
+                                                    <button type="submit" id="submit" class="btn btn-sm btn-primary">
+                                                        <i class="fa-solid fa-magnifying-glass"></i> <span class="ms-2">Search</span>
+                                                    </button>
+                                                </div>
+                                                <div class="">
+                                                    <button type="reset" id="reset" class="btn btn-sm btn-light">
+                                                        <i class="fa-solid fa-retweet"></i> <span class="ms-2">Reset</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+			</div>
+            <!--Action button start-->
+            <div class="p-1">
+                <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Action
+                </button>
+                <!-- <ul class="dropdown-menu"> -->
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <!--<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-add me-1"></i> Add</a>-->
+                    <a class="dropdown-item" href="[[=URL('supplement_page/create')]]"><i class="fas fa-add me-1"></i>
+                        Add</a>
+                    
+                </div>
+                <!-- </ul> -->     
+            </div>
+        
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered compact" style="width:100%" id="myTable">
+            <thead>
+        
+            </thead>
+            <tbody>
+                
+            </tbody>
+    
+        </table>
+
+    </div>
+
+</div>
+[[end]]
+[[block scripts]]
+<!-- individual pages can add scripts here -->
+
+<script>
+    $(document).ready(function() {        
+        
+        $('#custom_form').on('keyup', '.select2-search__field', function(e) {
+            var field_name=$('.select2-container--open').siblings('.select_custom').attr('name');
+            if (e.keyCode === 13 && field_name=='name') { // Enter key
+                var selectedValue = $(this).val();
+                if (selectedValue.length>=3){    
+                    
+                    $.ajax({
+                        url: '[[=URL("default","get_category")]]', // Replace with your endpoint
+                        method: 'GET',
+                        data: { q: selectedValue },
+                        dataType: 'json',
+                        success: function(data) { 
+                            $("[name='name']").empty();
+                            $("[name='name']").select2({
+                                dropdownParent: $("#custom_form"),
+                                data: data['results'],
+                                placeholder: "Select an option",
+                                allowClear: true
+                            }).select2('open');
+                        }
+                    });
+                }
+            }
+            if (e.keyCode === 13 && field_name=='language') { // Enter key
+                var selectedValue = $(this).val();
+                if (selectedValue.length>=3){    
+                    
+                    $.ajax({
+                        url: '[[=URL("default","get_category")]]', // Replace with your endpoint
+                        method: 'GET',
+                        data: { q: selectedValue },
+                        dataType: 'json',
+                        success: function(data) { 
+                            $("[name='language']").empty();
+                            $("[name='language']").select2({
+                                dropdownParent: $("#custom_form"),
+                                data: data['results'],
+                                placeholder: "Select an option",
+                                allowClear: true
+                            }).select2('open');
+                        }
+                    });
+                }
+            }
+        });
+    });
+
+    
+    
+    var table = $('#myTable').DataTable({
+        dom: "Bfrt<'d-flex justify-content-between'<l><i><p>>",
+        layout: {
+            topStart: {
+                buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+            }
+        },
+        order: [0, 'desc'],
+        searching:false,
+        paging: true,
+        serverSide: true,
+        scrollCollapse: false,
+        scrollX: true,
+        fixedColumns: {
+            start: 0,
+            end: 1
+        },
+        ajax: {
+            async: true,
+            type: 'GET',
+            url: '[[=URL("supplement_page","get_data")]]',
+            data: function (d) {
+                d.name = $("select[name='name']").val();
+                d.company = $("select[name='company']").val();
+                d.segment = $("select[name='segment']").val();
+                d.category = $("select[page_name='page_name']").val();
+                d.status = $("select[name='status']").val();
+            },
+            dataSrc: 'data'
+        },
+        lengthMenu: [
+        [15, 50, 100, -1],
+        [15, 50, 100, 'All']
+        ],
+        columns: [
+            {
+                title: 'ID',
+                data: 'id'
+            },
+          
+            
+            {
+                title: 'Company',
+                data: 'company'
+            },
+            {
+                title: 'Segment',
+                data: 'segment'
+            },
+            {
+                title: 'Supplement',
+                data: 'supplement'
+            },
+            {
+                title: 'Page Name',
+                data: 'page_name'
+            },
+            {
+                title: 'Status',
+                data: 'status',
+                render: function (data, type, row) {
+                    return `<div class='badge ${data == 1 ? 'bg-success' : 'bg-secondary'} fw-bold'>${data == 1 ? 'ACTIVE' : 'INACTIVE'}</div>`
+
+                }
+            },
+            {
+                title: '',
+                data: 'id',
+                render: function (data, type, row) {
+                    return `<a class="text-secondary mx-2" href="[[=URL('supplement_page/edit')]]?id=${data}"><i class="fas fa-edit"></i></a>`;
+
+                }
+            },
+        ]
+    });
+    
+
+    $("#submit").click(function(e){
+      e.preventDefault();
+      table
+    .clear()
+    .draw();
+    });
+
+    $("#reset").click(function(e){
+        e.preventDefault();
+        $("input,select").val(null);
+        $('.select_custom').select2({
+            dropdownParent: $("#custom_form"),
+            placeholder: "Select an option",
+            allowClear:true,
+        });
+        table.clear().draw();
+    });
+</script>
+[[end]]

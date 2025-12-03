@@ -1,0 +1,131 @@
+[[extend 'layout.html']]
+
+[[block header]]
+[[icon='fa fa-chart-line']]
+[[breadcamp = 'Agent Sales Info']]
+[[end]]
+
+[[block content]]
+<div class="container-section">
+    <div class="d-flex justify-content-between align-items-center border-bottom">
+        <span class="icon-text icon-text-bold">
+            <i class="fa-solid fa-plus"></i>
+            <span>Edit</span>
+        </span>
+
+        <div class="d-flex justify-content-end">
+            <div class="p-1">
+                <button type="button" class="btn btn-sm btn-light d-none" id="btn_view">
+                    <i class="fa-regular fa-eye"></i> <span class="ms-2">View</span>
+                </button>
+                <button type="button" class="btn btn-sm btn-light" id="btn_edit">
+                    <i class="fa-regular fa-pen-to-square"></i> <span class="ms-2">Edit</span>
+                </button>
+            </div>
+            <div class="p-1">
+                <a href="[[=URL('agent/index')]]" class="btn btn-sm btn-light">
+                    <i class="fa-solid fa-arrow-left"></i> <span class="ms-2">Back</span>
+                </a>
+            </div>
+            <div class="p-1">
+                <div class="btn-group">
+                    <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Action
+                    </button>
+                    <!-- <ul class="dropdown-menu"> -->
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <!--<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-add me-1"></i> Add</a>-->
+                        <a class="dropdown-item" href="delete?id=[[=request.query.get('id')]]" id="delete_btn">
+                            <i class="fa-solid fa-trash-can"></i><span class="ms-2">Delete</span></a>
+                    </div>
+                    <!-- </ul> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container py-2">
+
+        <form action="[[=URL('agent','sales_info_save')]]?id=[[=record.id]]" method="POST">
+
+        <div id="custom_form">        
+            <div class="row">  
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="agent_id" class="form-label">Agent ID <span class="is_required">*</span></label>
+                        <input type="text" id="agent_id" name="agent_id" value="[[=record.agent_id]]" class="form-control form-control-sm" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="agent_name" class="form-label">Agent Name <span class="is_required">*</span></label>
+                        <input type="text" id="agent_name" name="agent_name" value="[[=record.agent_name]]" class="form-control form-control-sm" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="agent_bangla" class="form-label">Agent Name (Bangla)</label>
+                        <input type="text" id="agent_bangla" name="agent_bangla" value="[[=record.agent_bangla]]" class="form-control form-control-sm" readonly>
+                    </div>
+                </div>
+                
+                <div class="col-sm-12 col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label" for="weekly_rate">Sales Info</label>
+                        <div>
+                            <table class="table table-bordered compact">
+                                <thead>
+                                    <tr class="text-center bg-light text-nowrap ">
+                                        <th>SL</th>
+                                        <th>Paper Name</th>
+                                        <th>Quantity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    [[sl=1]]
+                                    [[for paper in paper_list:]]
+                                    <tr>
+                                        <th class="text-start bg-light text-center">[[=sl]]</th>
+                                        <th class="text-start " style="width: 60%;">[[=paper['paper_name']]]</th>
+                                        <input type="hidden" name="paper_name" value="[[=paper['id']]]||[[=paper['paper_name']]]" class="form-control form-control-sm">
+                                        <td class="custom_input" style="width: 30%;">   
+                                            <input type="number"  name="quantity_[[=paper['id']]]" value="[[=paper['quantity']]]" class="form-control form-control-sm">
+                                        </td>
+                                    </tr>
+                                    [[sl+=1]]
+                                    [[pass]]
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+            <div class="row d-none" id="edit_view_section">
+                <div class="col-12">
+                    <div class="d-flex justify-content-start">
+                        <div class="me-2">
+                            <button type="submit" class="btn btn-sm btn-primary">
+                                <i class="fa-regular fa-floppy-disk"></i> <span class="ms-2">Update</span>
+                            </button>
+                        </div>
+                        <div class="">
+                            <button type="reset" class="btn btn-sm btn-light">
+                                <i class="fa-solid fa-retweet"></i> <span class="ms-2">Reset</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+
+</div>
+[[end]]
+[[block scripts]]
+
+<script>
+   
+</script>
+[[end]]

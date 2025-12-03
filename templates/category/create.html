@@ -1,0 +1,157 @@
+[[extend 'layout.html']]
+
+[[block header]]
+[[icon='fa fa-chart-line']]
+[[breadcamp = 'Category']]
+
+[[end]]
+
+[[block content]]
+<div class="container-section">
+    <div class="d-flex justify-content-between align-items-center border-bottom">
+        <span class="icon-text icon-text-bold">
+            <i class="fa-solid fa-plus"></i>
+            <span>Create</span>
+        </span>
+
+        <div class="d-flex justify-content-end">
+            <div class="p-1">
+                <a href="[[=URL('category/index')]]" class="btn btn-sm btn-light">
+                    <i class="fa-solid fa-arrow-left"></i> <span class="ms-2">Back</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="container py-2">
+
+        <form action="[[=URL('category','submit')]]" method="POST">
+
+        <div id="custom_form">        
+            <div class="row">                
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="category_name" class="form-label">Category Name</label>
+                        <input type="text" id="category_name" name="category_name" class="form-control form-control-sm">
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="1" checked id="status" name="status">
+                            <label class="form-check-label" for="status">
+                              Active
+                            </label>
+                        </div>
+                    </div>                    
+                </div>
+                <div class="col-md-4"></div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label" for="weekly_rate">Weekly Rate Setup</label>
+                        <div>
+                            <table class="table table-bordered compact">
+                                <thead>
+                                    <tr class="text-center bg-light">
+                                        <th>Day</th>
+                                        <th>No of Pages</th>
+                                        <th>Rate(TK)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th class="text-start bg-light">Saturday</th>
+                                        <td> 
+                                            <input type="number" id="sat_no_page" name="sat_no_page" class="form-control form-control-sm">
+                                        </td>
+                                        <td>                       
+                                            <input type="number" id="sat_price" name="sat_price" class="form-control form-control-sm">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-start bg-light">Sunday</th>
+                                        <td> 
+                                            <input type="number" id="sun_no_page" name="sun_no_page" class="form-control form-control-sm">
+                                        </td>
+                                        <td>                       
+                                            <input type="number" id="sun_price" name="sun_price" class="form-control form-control-sm">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-start bg-light">Monday</th>
+                                        <td> 
+                                            <input type="number" id="mon_no_page" name="mon_no_page" class="form-control form-control-sm">
+                                        </td>
+                                        <td>                       
+                                            <input type="number" id="mon_price" name="mon_price" class="form-control form-control-sm">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-start bg-light">Tuesday</th>
+                                        <td> 
+                                            <input type="number" id="tue_no_page" name="tue_no_page" class="form-control form-control-sm">
+                                        </td>
+                                        <td>                       
+                                            <input type="number" id="tue_price" name="tue_price" class="form-control form-control-sm">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-start bg-light">Wednesday</th>
+                                        <td> 
+                                            <input type="number" id="wed_no_page" name="wed_no_page" class="form-control form-control-sm">
+                                        </td>
+                                        <td>                       
+                                            <input type="number" id="wed_price" name="wed_price" class="form-control form-control-sm">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-start bg-light">Thursday</th>
+                                        <td> 
+                                            <input type="number" id="thu_no_page" name="thu_no_page" class="form-control form-control-sm">
+                                        </td>
+                                        <td>                       
+                                            <input type="number" id="thu_price" name="thu_price" class="form-control form-control-sm">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-start bg-light">Friday</th>
+                                        <td> 
+                                            <input type="number" id="fri_no_page" name="fri_no_page" class="form-control form-control-sm">
+                                        </td>
+                                        <td>                       
+                                            <input type="number" id="fri_price" name="fri_price" class="form-control form-control-sm">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>                    
+                </div>
+              
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-start">
+                        <div class="me-2">
+                            <button type="submit" class="btn btn-sm btn-primary">
+                                <i class="fa-regular fa-floppy-disk"></i> <span class="ms-2">Save</span>
+                            </button>
+                        </div>
+                        <div class="">
+                            <button type="reset" class="btn btn-sm btn-light">
+                                <i class="fa-solid fa-retweet"></i> <span class="ms-2">Reset</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+
+</div>
+[[end]]
+[[block scripts]]
+<!-- individual pages can add scripts here -->
+[[end]]

@@ -68,6 +68,24 @@ pass
                     <span class="menu-title">Tasks</span>
                   </a>
                 </li>
+                <li class="menu-item [[if _controller_name=='task_subtask':]]active_link[[pass]]">
+                  <a href="[[=URL('task_subtask/index')]]">
+                    <span class="menu-icon"><i class="fa-solid fa-list-ul"></i></span>
+                    <span class="menu-title">Subtasks</span>
+                  </a>
+                </li>
+                <li class="menu-item [[if _controller_name=='task_assignee':]]active_link[[pass]]">
+                  <a href="[[=URL('task_assignee/index')]]">
+                    <span class="menu-icon"><i class="fa-solid fa-user-check"></i></span>
+                    <span class="menu-title">Assignees</span>
+                  </a>
+                </li>
+                <li class="menu-item [[if _controller_name=='task_comment':]]active_link[[pass]]">
+                  <a href="[[=URL('task_comment/index')]]">
+                    <span class="menu-icon"><i class="fa-regular fa-comments"></i></span>
+                    <span class="menu-title">Comments</span>
+                  </a>
+                </li>
               </ul>
             </div>
           </li>

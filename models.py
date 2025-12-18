@@ -35,6 +35,8 @@ PROJECT_STATUS = ["planned", "in_progress", "blocked", "done", "archived"]
 TASK_STATUS = ["todo", "in_progress", "blocked", "in_review", "done", "archived"]
 PRIORITY_LEVELS = ["low", "normal", "high", "urgent"]
 WORK_LOG_STATUS = ["logged", "approved", "rejected"]
+SUBTASK_STATUS = TASK_STATUS
+COMMENT_VISIBILITY = ["internal", "external"]
 
 # Shared audit fields
 signature = db.Table(
@@ -274,6 +276,102 @@ db.define_table(
     ),
     Field("note", "text", length=500, default=""),
     Field("changed_on", "datetime", default=date_fixed),
+    signature,
+    migrate=True,
+)
+
+# Task assignees (support multi-user assignment)
+db.define_table(
+    "task_assignee",
+    Field("cid", "string", length=20, default=cid, requires=IS_NOT_EMPTY()),
+    Field(
+        "task_id",
+        "reference tasks",
+        requires=IS_IN_DB(db, "tasks.id", "%(task)s"),
+        ondelete="CASCADE",
+    ),
+    Field(
+        "user_id",
+        "reference user",
+        requires=IS_IN_DB(db, "user.id", "%(email)s"),
+        ondelete="CASCADE",
+    ),
+    Field(
+        "role",
+        "string",
+        length=50,
+        default="assignee",
+        requires=IS_IN_SET(["owner", "assignee", "reviewer", "observer"]),
+    ),
+    Field(
+        "unique_pair",
+        "string",
+        length=128,
+        compute=lambda row: f"{row.task_id}:{row.user_id}",
+        unique=True,
+        readable=False,
+        writable=False,
+    ),
+    signature,
+    migrate=True,
+)
+
+# Subtasks
+db.define_table(
+    "task_subtask",
+    Field("cid", "string", length=20, default=cid, requires=IS_NOT_EMPTY()),
+    Field(
+        "parent_task_id",
+        "reference tasks",
+        requires=IS_IN_DB(db, "tasks.id", "%(task)s"),
+        ondelete="CASCADE",
+    ),
+    Field("title", "string", length=200, requires=IS_NOT_EMPTY()),
+    Field(
+        "status",
+        "string",
+        length=20,
+        default="todo",
+        requires=IS_IN_SET(SUBTASK_STATUS),
+    ),
+    Field(
+        "priority",
+        "string",
+        length=20,
+        default="normal",
+        requires=IS_IN_SET(PRIORITY_LEVELS),
+    ),
+    Field("start_date", "date", requires=IS_EMPTY_OR(IS_DATE())),
+    Field("end_date", "date", requires=IS_EMPTY_OR(IS_DATE())),
+    Field("note", "text", length=500, default=""),
+    signature,
+    migrate=True,
+)
+
+# Task comments / chat
+db.define_table(
+    "task_comment",
+    Field("cid", "string", length=20, default=cid, requires=IS_NOT_EMPTY()),
+    Field(
+        "task_id",
+        "reference tasks",
+        requires=IS_IN_DB(db, "tasks.id", "%(task)s"),
+        ondelete="CASCADE",
+    ),
+    Field(
+        "user_id",
+        "reference user",
+        requires=IS_IN_DB(db, "user.id", "%(email)s"),
+    ),
+    Field("body", "text", length=2000, requires=IS_NOT_EMPTY()),
+    Field(
+        "visibility",
+        "string",
+        length=20,
+        default="internal",
+        requires=IS_IN_SET(COMMENT_VISIBILITY),
+    ),
+    Field("created_on", "datetime", default=date_fixed),
     signature,
     migrate=True,
 )

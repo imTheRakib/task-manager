@@ -7,7 +7,7 @@ assert py4web.check_compatible("0.1.20190709.1")
 from .models import db
 
 # by importing controllers you expose the actions defined in it
-from .controllers import login,default,dashboard,category,page_setup,press_setup,ctp_setup,paper_list,unsold_reason,division,district,police_station,post_office,union,station,route,sub_route,population,designation,employees,agent,sales_area,vehicle,vehicle_route,transport_maintenance,order_entry
+from .controllers import dashboard, module, project, role, task_assignee, task_comment, task_subtask, tasks, user_role, users, work_log
 
 # optional parameters
 __version__ = "0.0.0"

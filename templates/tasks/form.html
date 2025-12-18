@@ -1,0 +1,16 @@
+[[extend 'layout.html']]
+
+[[block header]]
+[[icon='fa fa-list-check']]
+[[breadcamp=title]]
+[[end]]
+
+<div class="card shadow-sm">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h6 class="mb-0">[[=title]]</h6>
+    <a class="btn btn-outline-secondary btn-sm" href="[[=URL('tasks')]]"><i class="fa fa-arrow-left me-1"></i>Back</a>
+  </div>
+  <div class="card-body">
+    [[=form]]
+  </div>
+</div>

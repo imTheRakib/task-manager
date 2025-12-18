@@ -1,0 +1,51 @@
+[[extend 'layout.html']]
+
+[[block header]]
+[[icon='fa fa-layer-group']]
+[[breadcamp='Modules']]
+[[end]]
+
+<div class="card shadow-sm">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <div>
+      <h6 class="mb-0">Modules</h6>
+      <small class="text-muted">Modules grouped by project.</small>
+    </div>
+    <a class="btn btn-primary btn-sm" href="[[=URL('module/create')]]"><i class="fa fa-plus me-1"></i>New Module</a>
+  </div>
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Project</th>
+            <th>Name</th>
+            <th>Owner</th>
+            <th>Status</th>
+            <th class="text-end">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          [[if not rows:]]
+          <tr><td colspan="5" class="text-center text-muted py-4">No modules found.</td></tr>
+          [[else:]]
+          [[for row in rows:]]
+          <tr>
+            <td>[[=row.project_id and db.project(row.project_id).name or '' ]]</td>
+            <td>[[=row.name]]</td>
+            <td>[[=row.owner_id and db.user(row.owner_id).email or '' ]]</td>
+            <td><span class="badge bg-light text-dark text-uppercase">[[=row.status]]</span></td>
+            <td class="text-end text-nowrap">
+              <a class="btn btn-sm btn-outline-primary" href="[[=URL('module/%s/edit' % row.id)]]"><i class="fa fa-pen"></i></a>
+              <form action="[[=URL('module/%s/delete' % row.id)]]" method="post" class="d-inline">
+                <button class="btn btn-sm btn-outline-danger" type="submit" onclick="return confirm('Delete this module?');"><i class="fa fa-trash"></i></button>
+              </form>
+            </td>
+          </tr>
+          [[pass]]
+          [[pass]]
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

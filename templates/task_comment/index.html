@@ -1,0 +1,49 @@
+[[extend 'layout.html']]
+
+[[block header]]
+[[icon='fa fa-comments']]
+[[breadcamp='Comments']]
+[[end]]
+
+<div class="card shadow-sm">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <div>
+      <h6 class="mb-0">Task Comments</h6>
+      <small class="text-muted">Conversations on tasks.</small>
+    </div>
+    <a class="btn btn-primary btn-sm" href="[[=URL('task_comment/create')]]"><i class="fa fa-plus me-1"></i>Add Comment</a>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-light">
+        <tr>
+          <th>Task</th>
+          <th>User</th>
+          <th>Visibility</th>
+          <th>Message</th>
+          <th class="text-end">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[if not rows:]]
+        <tr><td colspan="5" class="text-center text-muted py-4">No comments.</td></tr>
+        [[else:]]
+        [[for row in rows:]]
+        <tr>
+          <td>[[=row.task_id and db.tasks(row.task_id).task or '']]</td>
+          <td>[[=row.user_id and db.user(row.user_id).email or '']]</td>
+          <td><span class="badge bg-light text-dark text-uppercase">[[=row.visibility]]</span></td>
+          <td>[[=row.body]]</td>
+          <td class="text-end text-nowrap">
+            <a class="btn btn-sm btn-outline-primary" href="[[=URL('task_comment/%s/edit' % row.id)]]"><i class="fa fa-pen"></i></a>
+            <form action="[[=URL('task_comment/%s/delete' % row.id)]]" method="post" class="d-inline">
+              <button class="btn btn-sm btn-outline-danger" type="submit" onclick="return confirm('Delete this comment?');"><i class="fa fa-trash"></i></button>
+            </form>
+          </td>
+        </tr>
+        [[pass]]
+        [[pass]]
+      </tbody>
+    </table>
+  </div>
+</div>

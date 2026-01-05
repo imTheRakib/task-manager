@@ -67,7 +67,7 @@ db.define_table(
         requires=IS_IN_SET(ROLE_STATUS),
     ),
     signature,
-    migrate=True,
+    migrate=False,
 )
 
 # Users
@@ -101,7 +101,7 @@ db.define_table(
     ),
     Field("timezone", "string", length=64, default="UTC"),
     signature,
-    migrate=True,
+    migrate=False,
 )
 
 # User to role mapping
@@ -130,7 +130,7 @@ db.define_table(
         writable=False,
     ),
     signature,
-    migrate=True,
+    migrate=False,
 )
 
 # Projects
@@ -140,25 +140,13 @@ db.define_table(
     Field("bu", "string", length=10, requires=IS_NOT_EMPTY()),
     Field("name", "string", length=120, requires=IS_NOT_EMPTY()),
     Field("description", "text", length=500, default=""),
-    Field(
-        "owner_id",
-        "reference user",
-        requires=IS_IN_DB(db, "user.id", "%(email)s"),
-    ),
-    Field(
-        "reliever_id",
-        "reference user",
-        requires=IS_EMPTY_OR(IS_IN_DB(db, "user.id", "%(email)s")),
-    ),
-    Field(
-        "status",
-        "string",
-        length=20,
-        default="planned",
-        requires=IS_IN_SET(PROJECT_STATUS),
+    Field("owner_id", "string", length=100,),
+    Field("reliever_id","string", ),
+    Field("status","string",length=20, default="planned",
+        #    requires=IS_IN_SET(PROJECT_STATUS),
     ),
     signature,
-    migrate=True,
+    migrate=False,
 )
 
 # Modules
@@ -192,7 +180,7 @@ db.define_table(
         requires=IS_IN_SET(PROJECT_STATUS),
     ),
     signature,
-    migrate=True,
+    migrate=False,
 )
 
 # Tasks
@@ -242,7 +230,7 @@ db.define_table(
     Field("description", "text", length=500, default=""),
     Field("comments", "text", length=300, default=""),
     signature,
-    migrate=True,
+    migrate=False,
 )
 
 # Task change log
@@ -277,7 +265,7 @@ db.define_table(
     Field("note", "text", length=500, default=""),
     Field("changed_on", "datetime", default=date_fixed),
     signature,
-    migrate=True,
+    migrate=False,
 )
 
 # Task assignees (support multi-user assignment)
@@ -313,7 +301,7 @@ db.define_table(
         writable=False,
     ),
     signature,
-    migrate=True,
+    migrate=False,
 )
 
 # Subtasks
@@ -345,7 +333,7 @@ db.define_table(
     Field("end_date", "date", requires=IS_EMPTY_OR(IS_DATE())),
     Field("note", "text", length=500, default=""),
     signature,
-    migrate=True,
+    migrate=False,
 )
 
 # Task comments / chat
@@ -373,7 +361,7 @@ db.define_table(
     ),
     Field("created_on", "datetime", default=date_fixed),
     signature,
-    migrate=True,
+    migrate=False,
 )
 
 # Work logs (time tracking)
@@ -402,7 +390,7 @@ db.define_table(
     ),
     Field("work_description", "text", length=500, requires=IS_NOT_EMPTY()),
     signature,
-    migrate=True,
+    migrate=False,
 )
 
 # --------------------- End Task Management Tables ---------------------

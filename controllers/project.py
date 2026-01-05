@@ -18,7 +18,7 @@ def index():
 def create():
     form = Form(db.project, keep_values=True, formstyle=FormStyleDefault)
     if form.accepted:
-        flash.set("Project created")
+        flash.set("Project Created")
         redirect(URL("project"))
     elif form.errors:
         flash.set("Please correct the errors", sanitize=False)
